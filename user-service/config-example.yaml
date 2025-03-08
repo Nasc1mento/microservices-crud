@@ -1,9 +1,0 @@
-server:
-  host: 
-  port: 
-database:
-  host: 
-  port: 
-  username: 
-  password: 
-  name:

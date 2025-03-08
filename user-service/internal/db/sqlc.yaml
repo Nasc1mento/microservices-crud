@@ -5,8 +5,8 @@ sql:
     schema: "schema.sql"
     gen:
       go:
-        package: "user"
-        out: "user"
+        package: "repo"
+        out: "repo"
         sql_package: "pgx/v5"
         overrides:
           - db_type: "uuid"

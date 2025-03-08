@@ -3,7 +3,7 @@
 //   sqlc v1.28.0
 // source: query.sql
 
-package user
+package repo
 
 import (
 	"context"
@@ -47,23 +47,6 @@ WHERE id = $1
 func (q *Queries) DeleteUser(ctx context.Context, id uuid.UUID) error {
 	_, err := q.db.Exec(ctx, deleteUser, id)
 	return err
-}
-
-const getUserByEmail = `-- name: GetUserByEmail :one
-SELECT id, name, email, password FROM users 
-WHERE email = $1 LIMIT 1
-`
-
-func (q *Queries) GetUserByEmail(ctx context.Context, email string) (User, error) {
-	row := q.db.QueryRow(ctx, getUserByEmail, email)
-	var i User
-	err := row.Scan(
-		&i.ID,
-		&i.Name,
-		&i.Email,
-		&i.Password,
-	)
-	return i, err
 }
 
 const getUserById = `-- name: GetUserById :one
@@ -121,21 +104,28 @@ func (q *Queries) ListUsers(ctx context.Context, arg ListUsersParams) ([]User, e
 }
 
 const updateUser = `-- name: UpdateUser :exec
-UPDATE users SET
-    name = $1,
-    email = $2,
-    password = $3
-WHERE id = $3
+UPDATE users 
+SET
+    name = COALESCE($2, name),
+    email = COALESCE($3, email),
+    password = COALESCE($4, password)
+WHERE id = $1
 RETURNING id, name, email, password
 `
 
 type UpdateUserParams struct {
+	ID       uuid.UUID
 	Name     string
 	Email    string
 	Password string
 }
 
 func (q *Queries) UpdateUser(ctx context.Context, arg UpdateUserParams) error {
-	_, err := q.db.Exec(ctx, updateUser, arg.Name, arg.Email, arg.Password)
+	_, err := q.db.Exec(ctx, updateUser,
+		arg.ID,
+		arg.Name,
+		arg.Email,
+		arg.Password,
+	)
 	return err
 }

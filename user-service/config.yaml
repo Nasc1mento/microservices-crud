@@ -1,9 +1,11 @@
 server:
-  host: "localhost"
-  port: 8080
+  grpcHost: "localhost"
+  grpcPort: 8080
+  restHost: "localhost"
+  restPort: 8081
 database:
   host: "localhost"
   port: 5432
   username: "postgres"
   password: "root"
-  name: "testdb"
+  name: "userservicedb"

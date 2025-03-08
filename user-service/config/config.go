@@ -12,8 +12,10 @@ type Config struct {
 }
 
 type Server struct {
-	Host string
-	Port uint16
+	GRpcHost string
+	GRpcPort uint16
+	ResHost  string
+	RestPort uint16
 }
 
 type Database struct {
