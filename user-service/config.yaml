@@ -8,4 +8,4 @@ database:
   port: 5432
   username: "postgres"
   password: "root"
-  name: "userservicedb"
+  name: "usersdb"
