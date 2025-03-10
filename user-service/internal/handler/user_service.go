@@ -1,10 +1,10 @@
-package service
+package handler
 
 import (
 	"context"
 
 	"microservices-crud/user-service/internal/db/repo"
-	user "microservices-crud/user-service/internal/pb"
+	user "microservices-crud/user-service/internal/pb/v1"
 
 	"github.com/google/uuid"
 	"google.golang.org/grpc/codes"

@@ -6,8 +6,8 @@ import (
 	"log"
 	"microservices-crud/user-service/config"
 	"microservices-crud/user-service/internal/db/repo"
-	user "microservices-crud/user-service/internal/pb"
-	"microservices-crud/user-service/internal/service"
+	"microservices-crud/user-service/internal/handler"
+	user "microservices-crud/user-service/internal/pb/v1"
 	"net"
 	"net/http"
 
@@ -54,7 +54,7 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	us := service.NewServer(q)
+	us := handler.NewServer(q)
 	user.RegisterUserServiceServer(s, us)
 
 	go func() {

@@ -9,7 +9,7 @@ import "google/api/annotations.proto";
 service ArticleService {
   rpc GetArticle(GetArticleRequest) returns (GetArticleResponse) {
     option (google.api.http) = {
-      get: "v1/article/{id}"
+      get: "/v1/article/{id}"
     };
   }
 
@@ -42,7 +42,7 @@ message ArticleResponse {
 }
 
 message GetArticleResponse {
-  repeated ArticleResponse = 1;
+  repeated ArticleResponse articles = 1;
 }
 
 
