@@ -9,3 +9,6 @@ protoc-gen-gw-stubs:
     --grpc-gateway_opt paths=source_relative \
     --grpc-gateway_opt generate_unbound_methods=true \
     ../proto/v1/user.proto
+
+sqlc-gen:
+	podman run --rm --privileged -v ./internal/db/.:/src -w /src sqlc/sqlc generate
